@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>JS Pomodoro Timer</title>
+        <style>
+            body {
+                color:white;
+                text-align: center;
+                background: rgb(2,0,36);
+                background: linear-gradient(16deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+                background-size:cover;
+                background-repeat:no-repeat;
+                
+            }
+            a:link {
+                color: limegreen;
+            }
+            a:visited {
+                color: lightgreen
+            }
+    
+            a:hover {
+                color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+            <h1><span id="hours">01</span>:<span id="mins">00</span>:<span id="secs">00</span> Remaining</h1>
+            <p id="SoundControls"></p>
+            <p id="Start"><button onclick="Reset()">Start!</button></p>
+                        
+            <footer>Josh Strawbridge 2021</footer>
+      
+        <script>
+            clearInterval(countdown);
+            var time = 3600000;
+
+
+            function playalarm() 
+            { 
+                var alarm = document.getElementById("alarm"); 
+                alarm.play(); 
+            } 
+            
+
+            function PomoGo() 
+            {
+                time -= 1000;
+                var hours = Math.floor(time/3600000);
+                var mins = Math.floor(time/60000);
+                var secs = (time%60000)/1000;
+                
+                if (hours<10) { document.getElementById("hours").innerHTML = "0"+hours;}
+                else {document.getElementById("hours").innerHTML = hours;}
+                if (mins<10) { document.getElementById("mins").innerHTML = "0"+mins;}
+                else {document.getElementById("mins").innerHTML = mins;}
+                if (secs<10) { document.getElementById("secs").innerHTML = "0"+secs;}
+                else {document.getElementById("secs").innerHTML = secs;}
+                
+                if (time == 0) {
+                    document.getElementById("SoundControls").innerHTML = '<audio autoplay="true">'+
+                        '<source src="Druid Music - Equiz In Progress 2.wav" type="audio/wav">'+
+                            'Your browser does not support the audio tag </audio><br />'+
+                            '"Equiz in Progress 2" by Druid Music.  CC0 Licensed<br />'+
+                            '<a href="https://soundcloud.com/druidmusic-1/background-music-copyright-free-music-cc0">SoundCloud Link</a>';
+                    document.getElementById("Start").innerHTML = '<button onclick="Reset()">reset!</button>';
+                    clearInterval(countdown);
+                }
+                
+            }
+
+
+            function Reset() {
+                time = 3600000; 
+                document.getElementById("hours").innerHTML = "01";
+                document.getElementById("mins").innerHTML = "00";
+                document.getElementById("secs").innerHTML = "00";
+                countdown = setInterval(PomoGo ,1000);
+                document.getElementById("SoundControls").innerHTML = "";
+                document.getElementById("Start").innerHTML = "";
+
+            }
+
+        </script>
+    </body>
+</html>
